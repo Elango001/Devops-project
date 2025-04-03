@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="auth-corner">
+      <a href="{{ url_for('auth.login') }}">Login</a>
+      <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+    </div>
+
+    <h2>Welcome to V-CareTaker!</h2>
+
+    <p class="description">
+      V-CareTaker is a web application designed to provide efficient healthcare
+      management solutions. Our platform helps you connect with caregivers,
+      manage appointments, and track your health data all in one place.
+    </p>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <script>
+      (function () {
+        let timeout;
+        const resetTimer = () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            if (
+              confirm(
+                "You have been inactive for 10 minutes. Do you want to stay logged in?"
+              )
+            ) {
+              resetTimer();
+            } else {
+              window.location.href = "{{ url_for('auth.logout') }}";
+            }
+          }, 600000); // 10 minutes
+        };
+
+        window.onload = resetTimer;
+        window.onmousemove = resetTimer;
+        window.onkeypress = resetTimer;
+      })();
+    </script>
+  </body>
+</html>
