@@ -15,15 +15,15 @@
       <a href="{{ url_for('auth.signup') }}">Sign Up</a>
     </div>
 
-    <h2>Welcome to V-CareTaker!</h2>
+    <h1 class="wel">Welcome to V-CareTaker!</h1>
+    <br />
 
     <p class="description">
       V-CareTaker is a web application designed to provide efficient healthcare
       management solutions. Our platform helps you connect with caregivers,
-      manage appointments, and track your health data all in one place.
+      manage appointmens, and track your health data all in one place.
     </p>
 
-    <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
     <ul>
