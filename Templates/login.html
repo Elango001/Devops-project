@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles1.css') }}"
+    />
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        class="login-form"
+        method="POST"
+        action="{{ url_for('auth.login') }}"
+      >
+        <h1>Login</h1>
+
+        <label class="size" for="username">Username</label>
+        <input
+          class="input-box"
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Type your username"
+          required
+        />
+
+        <label class="size" for="password">Password</label>
+        <input
+          class="input-box"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Type your password"
+          required
+        />
+
+        <button type="submit" class="login-button">LOGIN</button>
+        <p id="or">Or</p>
+        <button
+          type="button"
+          class="sign-up"
+          onclick="location.href='{{ url_for('auth.signup') }}'"
+        >
+          SIGN UP
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

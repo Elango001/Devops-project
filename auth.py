@@ -61,7 +61,7 @@ def login():
         else:
             flash("Login failed. Please check your username and password.", "danger")
 
-    return render_template('index.html')
+    return render_template('login.html')
 
 @auth.route('/logout')
 def logout():
@@ -83,7 +83,6 @@ def profile():
 
     user = User.query.get(session["id"])  # Fetch user from DB using session ID
     if not user:
-        flash("User not found.", "danger")
         return redirect(url_for('auth.login'))
 
     return render_template("profile.html", user=user)

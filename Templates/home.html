@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for(filename='styles.css') }}" />
   </head>
   <body>
     <div class="auth-corner">
-      <a href="{{ url_for('auth.login') }}">Login</a>
-      <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+      <a style="text-decoration: none" href="{{ url_for('auth.login') }}"
+        >Login</a
+      >
+      <a style="text-decoration: none" href="{{ url_for('auth.signup') }}"
+        >Sign Up</a
+      >
     </div>
 
     <h1 class="wel">Welcome to V-CareTaker!</h1>
