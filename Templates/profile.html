@@ -22,6 +22,13 @@
       <p class="profile-text"><strong>Username:</strong> {{ user.username }}</p>
       <p class="profile-text"><strong>Email:</strong> {{ user.email }}</p>
 
+      <button
+        type="button"
+        class="logout-button"
+        onclick="location.href='{{url_for('nothing.pateint_video')}}'"
+      >
+        Monitor
+      </button>
       <!-- Logout Button -->
       <button
         type="button"

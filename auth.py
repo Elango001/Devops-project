@@ -81,7 +81,7 @@ def profile():
         flash("Please log in first.", "danger")
         return redirect(url_for('auth.login'))
 
-    user = User.query.get(session["id"])  # Fetch user from DB using session ID
+    user = User.query.get(session["id"])  
     if not user:
         return redirect(url_for('auth.login'))
 
