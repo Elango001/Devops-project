@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Video</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Patient Video Feed</h1>
+    <video id="videoElement" width="600" height="400" autoplay></video>
+
+    <h2>Detected Emotion: <span id="emotionText">Waiting...</span></h2>
+
+    <script>
+        // Establish a connection with the server
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        // Get access to the webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var videoElement = document.getElementById('videoElement');
+                videoElement.srcObject = stream;
+
+                // Capture frames and send them to the server for emotion analysis
+                setInterval(function() {
+                    var canvas = document.createElement('canvas');
+                    var video = videoElement;
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    // Convert the canvas image to base64
+                    var frame = canvas.toDataURL('image/jpeg');
+                    
+                    // Emit the frame to the server for processing
+                    socket.emit('video_frame', { frame: frame });
+                }, 100);  // Send frame every 100ms (adjust as needed)
+
+            }).catch(function(err) {
+                console.log("Error accessing webcam: ", err);
+            });
+
+        // Listen for the 'broadcast_frame' event from the server
+        socket.on('broadcast_frame', function(data) {
+            // Update the displayed emotion text with the received emotion
+            document.getElementById('emotionText').textContent = data.emotion;
+
+            // Optionally, handle error cases where no face was detected
+            if (data.emotion === 'error') {
+                document.getElementById('emotionText').textContent = "Face could not be detected.";
+            }
+        });
+    </script>
+</body>
+</html>
